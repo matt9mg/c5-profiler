@@ -1,0 +1,10 @@
+{
+  "require": {
+    "maximebf/debugbar": "^1.16"
+  },
+  "autoload": {
+    "psr-4": {
+      "MtProfiler\\Controller\\Api\\": "./controllers/api"
+    }
+  }
+}
