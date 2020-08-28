@@ -10,6 +10,7 @@ use Concrete\Package\MtProfiler\DataCollector\LogDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\RequestDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\RouteDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\SessionDataCollector;
+use Concrete\Package\MtProfiler\DataCollector\UserDataCollector;
 use Concrete\Package\MtProfiler\Renderer\JsRenderer;
 use DebugBar\Bridge\DoctrineCollector;
 use DebugBar\Bridge\MonologCollector;
@@ -19,8 +20,6 @@ use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
 use DebugBar\DataCollector\TimeDataCollector;
 use DebugBar\Storage\FileStorage;
-use Doctrine\DBAL\Logging\DebugStack;
-use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Logger;
 
 
@@ -71,7 +70,9 @@ class Debugbar extends \DebugBar\DebugBar
         $routeCollector = new RouteDataCollector($app->make(Router::class));
         $this->addCollector($routeCollector);
 
-        // TODO: AuthenticationCollector: Show currently login user, session, etc.
+        $userCollector = new UserDataCollector();
+        $this->addCollector($userCollector);
+
         // TODO: ControllerCollector: Show info of the controller of current request
         // TODO: EventsCollector: Show all events on current request
         // TODO: RouteCollector: Show info of the route of current request

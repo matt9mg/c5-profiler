@@ -4,6 +4,7 @@ namespace Concrete\Package\MtProfiler\DataCollector;
 
 use Concrete\Core\Page\Controller\AccountPageController;
 use Concrete\Core\Page\Page;
+use Concrete\Core\Page\View\PageView;
 use Concrete\Core\Routing\MatchedRoute;
 use Concrete\Core\Routing\Router;
 use DebugBar\DataCollector\DataCollector;
@@ -50,12 +51,16 @@ class RouteDataCollector extends DataCollector implements Renderable
 
             if (class_exists($class) === true && method_exists($class, $method) === true) {
                 $reflector = new \ReflectionMethod($class, $method);
-            }
-        }
 
-        if (isset($reflector)) {
-            $filename = ltrim(str_replace(REL_DIR_APPLICATION, '', $reflector->getFileName()), '/');
-            $result['file'] = $filename . ':' . $reflector->getStartLine() . '-' . $reflector->getEndLine();
+                $result['controller'] = $class . '@' . $method;
+            }
+
+            if (isset($reflector)) {
+                $filename = ltrim(str_replace(REL_DIR_APPLICATION, '', $reflector->getFileName()), '/');
+                $result['controller file'] = $filename . ':' . $reflector->getStartLine() . '-' . $reflector->getEndLine();
+            }
+
+            $result['view'] = $controller->getThemeViewTemplate();
         }
 
 
