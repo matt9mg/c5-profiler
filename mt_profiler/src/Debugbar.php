@@ -46,6 +46,13 @@ class Debugbar extends \DebugBar\DebugBar
         $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
         $this->addCollector(new MonologCollector($app->make('log')));
 
+        /**
+         * @var Logger $log
+         */
+        $log = $app->make('log');
+
+        $log->addError('shot house');
+
         $logger = $app->make('Concrete\Core\Database\DatabaseManager')->getConfiguration()->getSqlLogger();
         $this->addCollector(new DoctrineCollector($logger));
         $this->addCollector(new LogDataCollector());
