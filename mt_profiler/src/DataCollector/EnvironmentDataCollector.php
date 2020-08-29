@@ -25,10 +25,10 @@ class EnvironmentDataCollector extends DataCollector implements Renderable
     public function getWidgets()
     {
         return [
-            "environment" => [
+            "env" => [
                 "icon" => "globe",
                 "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
-                "map" => "environment",
+                "map" => "env",
                 "default" => "{}",
             ],
         ];

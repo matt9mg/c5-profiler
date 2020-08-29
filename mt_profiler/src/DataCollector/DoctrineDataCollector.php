@@ -27,21 +27,19 @@ use DebugBar\Bridge\DoctrineCollector;
  */
 class DoctrineDataCollector extends DoctrineCollector
 {
-
-
     /**
      * @return array
      */
     public function getWidgets()
     {
         return array(
-            "database" => array(
+            "DB" => array(
                 "icon" => "database",
                 "widget" => "PhpDebugBar.Widgets.SQLQueriesWidget",
                 "map" => "doctrine",
                 "default" => "[]"
             ),
-            "database:badge" => array(
+            "DB:badge" => array(
                 "map" => "doctrine.nb_statements",
                 "default" => 0
             )
