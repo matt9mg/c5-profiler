@@ -66,13 +66,6 @@ class Controller extends Package
 
         $router->addRoute($route);
 
-        /**
-         * @var EventDispatcher $director
-         */
-        $director = $this->app->make('director');
-        $director->addListener('test_mother_fucker', [$this, 'onTestEvent2']);
-
-
         require_once __DIR__ . '/vendor/autoload.php';
 
         $app = $this->getApplication();
@@ -90,6 +83,9 @@ class Controller extends Package
         $app->bind('debugbar/time', function () use ($app) {
             $debugbar = $app->make('debugbar');
             return $debugbar['time'];
+        });
+        $app->make('director')->addListener('on_before_dispatch', function () use ($app){
+            $app->make('debugbar');
         });
 
         $app->make('director')->addListener('on_before_render', function ($event) use ($app) {
