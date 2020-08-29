@@ -14,19 +14,13 @@ class SessionDataCollector extends DataCollector implements Renderable
     function collect()
     {
         $data = Session::all();
+        $items = [];
 
-        if (isset($data['uGroups'])) {
-            $groups = [];
-            foreach ($data['uGroups'] as $groupId) {
-                $groups[] = Group::getByID($groupId)->getGroupName();
-            }
-
-            $data['uGroups'] = $groups;
+        foreach ($data as $key => $datum) {
+            $items[$key] = $this->getVarDumper()->renderVar($datum);
         }
 
-        unset($data['dashboardMenus']);
-
-        return $data;
+        return $items;
     }
 
     /**
@@ -44,8 +38,8 @@ class SessionDataCollector extends DataCollector implements Renderable
     {
         return [
             "session" => [
-                "icon" => "tags",
-                "widget" => "PhpDebugBar.Widgets.VariableListWidget",
+                "icon" => "history",
+                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
                 "map" => "concrete5session",
                 "default" => "{}"
             ]

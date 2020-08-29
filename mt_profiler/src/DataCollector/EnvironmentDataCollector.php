@@ -8,26 +8,26 @@ class EnvironmentDataCollector extends DataCollector implements Renderable
 {
     public function collect()
     {
-        $data['variables'] = $this->getDataFormatter()->formatVar(get_defined_vars());
-        $data['server']    = $this->getDataFormatter()->formatVar($_SERVER);
-        $data['classes']   = $this->getDataFormatter()->formatVar(get_declared_classes());
-        $data['functions'] = $this->getDataFormatter()->formatVar(get_defined_functions());
-        $data['constants'] = $this->getDataFormatter()->formatVar(get_defined_constants());
+        $data['variables'] = $this->getVarDumper()->renderVar(get_defined_vars());
+        $data['server']    = $this->getVarDumper()->renderVar($_SERVER);
+        $data['classes']   = $this->getVarDumper()->renderVar(get_declared_classes());
+        $data['functions'] = $this->getVarDumper()->renderVar(get_defined_functions());
+        $data['constants'] = $this->getVarDumper()->renderVar(get_defined_constants());
 
         return $data;
     }
 
     public function getName()
     {
-        return 'environment';
+        return 'env';
     }
 
     public function getWidgets()
     {
         return [
             "environment" => [
-                "icon" => "file-archive-o",
-                "widget" => "PhpDebugBar.Widgets.VariableListWidget",
+                "icon" => "globe",
+                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
                 "map" => "environment",
                 "default" => "{}",
             ],

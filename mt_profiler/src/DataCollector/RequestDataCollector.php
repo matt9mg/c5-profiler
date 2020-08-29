@@ -16,13 +16,13 @@ class RequestDataCollector extends DataCollector implements Renderable
         $request = \Core::make('Concrete\Core\Http\Request');
 
         $data = [];
-        $data['path'] = $this->getDataFormatter()->formatVar($request->getPath());
-        $data['query'] = $this->getDataFormatter()->formatVar($request->query);
-        $data['cookies'] = $this->getDataFormatter()->formatVar($request->cookies);
-        $data['headers'] = $this->getDataFormatter()->formatVar($request->headers);
-        $data['host'] = $this->getDataFormatter()->formatVar($request->getHost());
-        $data['post'] = $this->getDataFormatter()->formatVar($request->getPort());
-        $data['clientip'] = $this->getDataFormatter()->formatVar($request->getClientIp());
+        $data['path'] = $this->getVarDumper()->renderVar($request->getPath());
+        $data['query'] = $this->getVarDumper()->renderVar($request->query);
+        $data['cookies'] = $this->getVarDumper()->renderVar($request->cookies);
+        $data['headers'] = $this->getVarDumper()->renderVar($request->headers);
+        $data['host'] = $this->getVarDumper()->renderVar($request->getHost());
+        $data['port'] = $this->getVarDumper()->renderVar($request->getPort());
+        $data['clientip'] = $this->getVarDumper()->renderVar($request->getClientIp());
 
         return $data;
     }
@@ -42,8 +42,8 @@ class RequestDataCollector extends DataCollector implements Renderable
     {
         return [
             "request" => [
-                "icon" => "tags",
-                "widget" => "PhpDebugBar.Widgets.VariableListWidget",
+                "icon" => "thumbs-up",
+                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
                 "map" => "concrete5request",
                 "default" => "{}"
             ]

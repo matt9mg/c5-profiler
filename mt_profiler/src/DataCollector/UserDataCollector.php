@@ -35,6 +35,9 @@ class UserDataCollector extends DataCollector implements Renderable
             }
 
             $data['Groups'] = implode(', ', $memberOf);
+
+            $data['User info'] = $this->getVarDumper()->renderVar($user->getUserInfoObject());
+            $data['Action'] = '<a class=\'\' href=' . $app->make('url/manager')->resolve(['/login', 'do_logout', $app->make('token')->generate('do_logout')]) . '>Logout</a>';
         }
 
         return $data;
@@ -56,7 +59,7 @@ class UserDataCollector extends DataCollector implements Renderable
         return [
             "user" => [
                 "icon" => "user",
-                "widget" => "PhpDebugBar.Widgets.VariableListWidget",
+                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
                 "map" => "user",
                 "default" => "{}"
             ]

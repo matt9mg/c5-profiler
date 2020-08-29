@@ -1,7 +1,9 @@
 <?php
+
 namespace Concrete\Package\MtProfiler\DataCollector;
 
 use Concrete\Core\Logging\LogList;
+use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\User\User;
 use Concrete\Package\MtProfiler\DataFormatter\SimpleDataFormatter;
 use DebugBar\DataCollector\DataCollector;
@@ -12,7 +14,7 @@ class LogDataCollector extends DataCollector implements Renderable
 {
     public function __construct()
     {
-       // $this->setDataFormatter(new LineFormatter());
+        // $this->setDataFormatter(new LineFormatter());
     }
 
     /**
@@ -21,6 +23,8 @@ class LogDataCollector extends DataCollector implements Renderable
     function collect()
     {
         $list = new LogList();
+        $list->filterByTime(strtotime(date('Y-m-d') . ' 00:00:00'), '>=');
+        $list->filterByTime(strtotime(date('Y-m-d') . ' 23:59:59'), '<=');
         $logs = $list->get();
 
         $data = [];

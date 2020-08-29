@@ -4,23 +4,24 @@ namespace Concrete\Package\MtProfiler;
 
 use Concrete\Core\Http\Request;
 use Concrete\Core\Routing\Router;
+use Concrete\Package\MtProfiler\DataCollector\BlockDataCollector;
+use Concrete\Package\MtProfiler\DataCollector\DoctrineDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\EnvironmentDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\EventDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\LogDataCollector;
+use Concrete\Package\MtProfiler\DataCollector\MailDataCollector;
+use Concrete\Package\MtProfiler\DataCollector\MonologDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\RequestDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\RouteDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\SessionDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\UserDataCollector;
 use Concrete\Package\MtProfiler\Renderer\JsRenderer;
-use DebugBar\Bridge\DoctrineCollector;
-use DebugBar\Bridge\MonologCollector;
 use DebugBar\DataCollector\ConfigCollector;
 use DebugBar\DataCollector\MemoryCollector;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
 use DebugBar\DataCollector\TimeDataCollector;
 use DebugBar\Storage\FileStorage;
-use Monolog\Logger;
 
 
 class Debugbar extends \DebugBar\DebugBar
@@ -36,24 +37,17 @@ class Debugbar extends \DebugBar\DebugBar
         $renderer->setOpenHandlerUrl('/mt_profiler/open/');
 
         $this->addCollector(new PhpInfoCollector());
-        $this->addCollector(new MessagesCollector());
-        $this->addCollector(new TimeDataCollector());
+        $this->addCollector(new MessagesCollector());$this->addCollector(new TimeDataCollector());
         $this->addCollector(new MemoryCollector());
         $this->addCollector(new RequestDataCollector());
         $this->addCollector(new SessionDataCollector());
 
         $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
-        $this->addCollector(new MonologCollector($app->make('log')));
+        $this->addCollector(new MonologDataCollector($app->make('log')));
 
-        /**
-         * @var Logger $log
-         */
-        $log = $app->make('log');
-
-        $log->addError('shot house');
 
         $logger = $app->make('Concrete\Core\Database\DatabaseManager')->getConfiguration()->getSqlLogger();
-        $this->addCollector(new DoctrineCollector($logger));
+        $this->addCollector(new DoctrineDataCollector($logger));
         $this->addCollector(new LogDataCollector());
         $this->addCollector(new EnvironmentDataCollector());
 
@@ -65,6 +59,7 @@ class Debugbar extends \DebugBar\DebugBar
 
         $configCollector = new ConfigCollector();
         $configCollector->setData($app->make('config')->all());
+        $configCollector->useHtmlVarDumper(true);
         $this->addCollector($configCollector);
 
         $routeCollector = new RouteDataCollector($app->make(Router::class));
@@ -73,12 +68,12 @@ class Debugbar extends \DebugBar\DebugBar
         $userCollector = new UserDataCollector();
         $this->addCollector($userCollector);
 
-        // TODO: ControllerCollector: Show info of the controller of current request
-        // TODO: EventsCollector: Show all events on current request
-        // TODO: RouteCollector: Show info of the route of current request
-        // TODO: ViewCollector: Show info of the view of current request
+        $blockCollector = new BlockDataCollector();
+        $blockCollector->subscribe($app->make('director'));
+        $this->addCollector($blockCollector);
 
-        //$this->stackData();
+        $mailCollector = new MailDataCollector();
+        $this->addCollector($mailCollector);
     }
 
     /**
