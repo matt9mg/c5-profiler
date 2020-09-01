@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace Concrete\Package\MtProfiler\DataCollector;
 
 use Concrete\Core\Support\Facade\Application;
@@ -7,16 +8,19 @@ use Concrete\Core\User\User;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 
+/**
+ * Class UserDataCollector
+ * @package Concrete\Package\MtProfiler\DataCollector
+ */
 class UserDataCollector extends DataCollector implements Renderable
 {
     /**
-     * @inheritDoc
+     * @return array
      */
-    function collect()
+    function collect(): array
     {
         $app = Application::getFacadeApplication();
         $user = $app->make(User::class);
-
 
         $data['Logged in as'] = $user->getUserID() ? $user->getUserName() : 'Annoymous User';
         $data['Authenticated'] = $user->getUserID() ? true : false;
@@ -44,24 +48,24 @@ class UserDataCollector extends DataCollector implements Renderable
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    function getName()
+    function getName(): string
     {
         return 'user';
     }
 
     /**
-     * @inheritDoc
+     * @return array|\string[][]
      */
-    function getWidgets()
+    function getWidgets(): array
     {
         return [
-            "user" => [
-                "icon" => "user",
-                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
-                "map" => "user",
-                "default" => "{}"
+            'user' => [
+                'icon' => 'user',
+                'widget' => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
+                'map' => 'user',
+                'default' => '{}'
             ]
         ];
     }

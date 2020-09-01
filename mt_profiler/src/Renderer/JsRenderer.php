@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace Concrete\Package\MtProfiler\Renderer;
 
 use Concrete\Core\Http\Request;
@@ -14,7 +15,7 @@ class JsRenderer extends BaseJavascriptRenderer
     protected $ajaxHandlerBindToJquery = false;
     protected $ajaxHandlerBindToXHR = true;
 
-    public function __construct(DebugBar $debugBar, $baseUrl = null, $basePath = null)
+    public function __construct(DebugBar $debugBar, string $baseUrl = null, string $basePath = null)
     {
         parent::__construct($debugBar, $baseUrl, $basePath);
 
@@ -24,9 +25,9 @@ class JsRenderer extends BaseJavascriptRenderer
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
-    public function renderHead()
+    public function renderHead(): string
     {
         $baseUrl = Request::getInstance()->getBaseUrl();
         $cssRoute = $baseUrl . '/mt_profiler/assets/css?v=' . $this->getModifiedTime('css');
@@ -49,7 +50,10 @@ class JsRenderer extends BaseJavascriptRenderer
         return $html;
     }
 
-    protected function getInlineHtml()
+    /**
+     * @return string
+     */
+    protected function getInlineHtml(): string
     {
         $html = '';
 
@@ -67,7 +71,7 @@ class JsRenderer extends BaseJavascriptRenderer
      * @param string $type 'js' or 'css'
      * @return int
      */
-    protected function getModifiedTime($type)
+    protected function getModifiedTime(string $type): int
     {
         $files = $this->getAssets($type);
 
@@ -87,7 +91,7 @@ class JsRenderer extends BaseJavascriptRenderer
      * @param string $type 'js' or 'css'
      * @return string
      */
-    public function dumpAssetsToString($type)
+    public function dumpAssetsToString(string $type): string
     {
         $files = $this->getAssets($type);
 
@@ -120,7 +124,7 @@ class JsRenderer extends BaseJavascriptRenderer
             return $uris;
         }
 
-        if (substr($uri, 0, 1) === '/' || preg_match('/^([a-zA-Z]+:\/\/|[a-zA-Z]:\/|[a-zA-Z]:\\\)/', $uri)) {
+        if ($uri !== null && (substr($uri, 0, 1) === '/' || preg_match('/^([a-zA-Z]+:\/\/|[a-zA-Z]:\/|[a-zA-Z]:\\\)/', $uri))) {
             return $uri;
         }
         return rtrim($root, '/') . "/$uri";

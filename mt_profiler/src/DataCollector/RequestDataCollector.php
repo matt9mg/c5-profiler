@@ -1,19 +1,24 @@
 <?php
+declare(strict_types=1);
+
 namespace Concrete\Package\MtProfiler\DataCollector;
 
 use Concrete\Core\Http\Request;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 
+/**
+ * Class RequestDataCollector
+ * @package Concrete\Package\MtProfiler\DataCollector
+ */
 class RequestDataCollector extends DataCollector implements Renderable
 {
     /**
-     * @inheritDoc
+     * @return array
      */
-    function collect()
+    function collect(): array
     {
-        /** @var Request $request */
-        $request = \Core::make('Concrete\Core\Http\Request');
+        $request = Request::getInstance();
 
         $data = [];
         $data['path'] = $this->getVarDumper()->renderVar($request->getPath());
@@ -28,24 +33,24 @@ class RequestDataCollector extends DataCollector implements Renderable
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    function getName()
+    function getName(): string
     {
         return 'concrete5request';
     }
 
     /**
-     * @inheritDoc
+     * @return \string[][]
      */
-    function getWidgets()
+    function getWidgets(): array
     {
         return [
-            "request" => [
-                "icon" => "thumbs-up",
-                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
-                "map" => "concrete5request",
-                "default" => "{}"
+            'request' => [
+                'icon' => 'thumbs-up',
+                'widget' => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
+                'map' => 'concrete5request',
+                'default' => '{}'
             ]
         ];
     }

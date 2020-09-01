@@ -1,22 +1,23 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Concrete\Package\MtProfiler\DataCollector;
 
-use Concrete\Core\Block\Block;
 use Concrete\Core\Logging\LogList;
-use Concrete\Package\MtProfiler\DataFormatter\SimpleDataFormatter;
 use DebugBar\DataCollector\AssetProvider;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
-use DebugBar\DataCollector\TimeDataCollector;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Str;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
+/**
+ * Class MailDataCollector
+ * @package Concrete\Package\MtProfiler\DataCollector
+ */
 class MailDataCollector extends DataCollector implements Renderable, AssetProvider
 {
-    public function collect()
+    /**
+     * @return array
+     */
+    public function collect(): array
     {
         $list = new LogList();
         $list->filterByTime(strtotime(date('Y-m-d') . ' 00:00:00'), '>=');
@@ -42,24 +43,30 @@ class MailDataCollector extends DataCollector implements Renderable, AssetProvid
         ];
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return 'mail';
     }
 
-    public function getWidgets()
+    /**
+     * @return \string[][]
+     */
+    public function getWidgets(): array
     {
         return [
-            "mail" => [
-                "icon" => "inbox",
-                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
-                "map" => "mail.records",
-                "default" => "{}"
+            'mail' => [
+                'icon' => 'inbox',
+                'widget' => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
+                'map' => 'mail.records',
+                'default' => '{}'
             ],
-            "mail:badge" => array(
-                "map" => "mail.count",
-                "default" => "null"
-            )
+            'mail:badge' => [
+                'map' => 'mail.count',
+                'default' => 'null'
+            ]
         ];
     }
 

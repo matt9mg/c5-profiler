@@ -1,45 +1,33 @@
 <?php
-/*
- * This file is part of the DebugBar package.
- *
- * (c) 2013 Maxime Bouroumeau-Fuseau
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+declare(strict_types=1);
 
 namespace Concrete\Package\MtProfiler\DataCollector;
 
 use DebugBar\Bridge\MonologCollector;
 
 /**
- * A monolog handler as well as a data collector
- *
- * https://github.com/Seldaek/monolog
- *
- * <code>
- * $debugbar->addCollector(new MonologCollector($logger));
- * </code>
+ * Class MonologDataCollector
+ * @package Concrete\Package\MtProfiler\DataCollector
  */
 class MonologDataCollector extends MonologCollector
 {
     /**
-     * @return array
+     * @return \string[][]
      */
-    public function getWidgets()
+    public function getWidgets(): array
     {
         $name = $this->getName();
-        return array(
-            $name => array(
-                "icon" => "edit",
-                "widget" => "PhpDebugBar.Widgets.MessagesWidget",
-                "map" => "$name.records",
-                "default" => "[]"
-            ),
-            "$name:badge" => array(
-                "map" => "$name.count",
-                "default" => "null"
-            )
-        );
+        return [
+            $name => [
+                'icon' => 'edit',
+                'widget' => 'PhpDebugBar.Widgets.MessagesWidget',
+                'map' => $name . '.records',
+                'default' => '[]'
+            ],
+            $name . ':badge' => [
+                'map' => $name . '.count',
+                'default' => 'null'
+            ]
+        ];
     }
 }

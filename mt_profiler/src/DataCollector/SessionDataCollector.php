@@ -1,19 +1,22 @@
 <?php
+declare(strict_types=1);
 namespace Concrete\Package\MtProfiler\DataCollector;
 
-use Concrete\Core\User\Group\Group;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
-use Session;
 
+/**
+ * Class SessionDataCollector
+ * @package Concrete\Package\MtProfiler\DataCollector
+ */
 class SessionDataCollector extends DataCollector implements Renderable
 {
     /**
-     * @inheritDoc
+     * @return array
      */
-    function collect()
+    function collect(): array
     {
-        $data = Session::all();
+        $data = \Session::all();
         $items = [];
 
         foreach ($data as $key => $datum) {
@@ -24,24 +27,24 @@ class SessionDataCollector extends DataCollector implements Renderable
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    function getName()
+    function getName(): string
     {
         return 'concrete5session';
     }
 
     /**
-     * @inheritDoc
+     * @return \string[][]
      */
-    function getWidgets()
+    function getWidgets(): array
     {
         return [
-            "session" => [
-                "icon" => "history",
-                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
-                "map" => "concrete5session",
-                "default" => "{}"
+            'session' => [
+                'icon' => 'history',
+                'widget' => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
+                'map' => 'concrete5session',
+                'default' => '{}'
             ]
         ];
     }

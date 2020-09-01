@@ -1,30 +1,41 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Concrete\Package\MtProfiler\DataCollector;
 
 use Concrete\Package\MtProfiler\DataFormatter\SimpleDataFormatter;
 use DebugBar\DataCollector\TimeDataCollector;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Str;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
+/**
+ * Class EventDataCollector
+ * @package Concrete\Package\MtProfiler\DataCollector
+ */
 class EventDataCollector extends TimeDataCollector
 {
     /** @var EventDispatcher */
-    protected $events;
+    protected EventDispatcher $events;
 
-    /** @var integer */
-    protected $previousTime;
+    protected float $previousTime;
 
-    public function __construct($requestStartTime = null)
+    /**
+     * EventDataCollector constructor.
+     * @param float|null $requestStartTime
+     */
+    public function __construct(float $requestStartTime = null)
     {
         parent::__construct($requestStartTime);
         $this->previousTime = microtime(true);
         $this->setDataFormatter(new SimpleDataFormatter());
     }
 
-    public function onWildcardEvent($event = null, $name = null)
+    /**
+     * @param GenericEvent|null $event
+     * @param string|null $name
+     * @throws \ReflectionException
+     */
+    public function onWildcardEvent(GenericEvent $event = null, string $name = null): void
     {
         $currentTime = microtime(true);
 
@@ -62,7 +73,10 @@ class EventDataCollector extends TimeDataCollector
         $this->previousTime = $currentTime;
     }
 
-    public function subscribe(EventDispatcher $events)
+    /**
+     * @param EventDispatcher $events
+     */
+    public function subscribe(EventDispatcher $events): void
     {
         $this->events = $events;
 
@@ -71,7 +85,11 @@ class EventDataCollector extends TimeDataCollector
         }
     }
 
-    public function collect()
+    /**
+     * @return array
+     * @throws \DebugBar\DebugBarException
+     */
+    public function collect(): array
     {
         $data = parent::collect();
         $data['nb_measures'] = count($data['measures']);
@@ -79,19 +97,25 @@ class EventDataCollector extends TimeDataCollector
         return $data;
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return 'event';
     }
 
-    public function getWidgets()
+    /**
+     * @return array
+     */
+    public function getWidgets(): array
     {
         return [
-            "events" => [
-                "icon" => "calendar",
-                "widget" => "PhpDebugBar.Widgets.TimelineWidget",
-                "map" => "event",
-                "default" => "{}",
+            'events' => [
+                'icon' => 'calendar',
+                'widget' => 'PhpDebugBar.Widgets.TimelineWidget',
+                'map' => 'event',
+                'default' => '{}',
             ],
             'events:badge' => [
                 'map' => 'event.nb_measures',

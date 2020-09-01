@@ -1,23 +1,28 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Concrete\Package\MtProfiler\DataCollector;
 
-use Concrete\Core\Block\Block;
+use Concrete\Core\Block\Events\BlockBeforeRender;
 use DebugBar\DataCollector\AssetProvider;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
+/**
+ * Class BlockDataCollector
+ * @package Concrete\Package\MtProfiler\DataCollector
+ */
 class BlockDataCollector extends DataCollector implements Renderable, AssetProvider
 {
-    private $data = [];
+    private array $data = [];
 
-    public function onWildcardEvent($event = null, $name = null)
+    /**
+     * @param BlockBeforeRender null $event
+     * @param string|null $name
+     */
+    public function onWildcardEvent(BlockBeforeRender $event = null, string $name = null): void
     {
-        /**
-         * @var Block $block
-         */
         $block = $event->getSubject();
 
         $block->getBlockAreaObject()->getAreaDisplayName();
@@ -34,14 +39,20 @@ class BlockDataCollector extends DataCollector implements Renderable, AssetProvi
         ])];
     }
 
-    public function subscribe(EventDispatcher $events)
+    /**
+     * @param EventDispatcher $events
+     */
+    public function subscribe(EventDispatcher $events): void
     {
         $this->events = $events;
 
         $this->events->addListener('on_block_before_render', [$this, 'onWildcardEvent']);
     }
 
-    public function collect()
+    /**
+     * @return array
+     */
+    public function collect(): array
     {
         return [
             'records' => $this->data,
@@ -49,23 +60,29 @@ class BlockDataCollector extends DataCollector implements Renderable, AssetProvi
         ];
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return 'blocks';
     }
 
-    public function getWidgets()
+    /**
+     * @return \string[][]
+     */
+    public function getWidgets(): array
     {
         return [
-            "blocks" => [
-                "icon" => "cubes",
-                "widget" => "PhpDebugBar.Widgets.HtmlVariableListWidget",
-                "map" => "blocks.records",
-                "default" => "{}"
+            'blocks' => [
+                'icon' => 'cubes',
+                'widget' => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
+                'map' => 'blocks.records',
+                'default' => '{}'
             ],
-            "blocks:badge" => array(
-                "map" => "blocks.count",
-                "default" => "null"
+            'blocks:badge' => array(
+                'map' => 'blocks.count',
+                'default' => 'null'
             )
         ];
     }
@@ -73,7 +90,7 @@ class BlockDataCollector extends DataCollector implements Renderable, AssetProvi
     /**
      * @return array
      */
-    public function getAssets()
+    public function getAssets(): array
     {
         return $this->getVarDumper()->getAssets();
     }

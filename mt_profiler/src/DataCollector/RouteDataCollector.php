@@ -1,18 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Concrete\Package\MtProfiler\DataCollector;
 
-use Concrete\Core\Page\Controller\AccountPageController;
-use Concrete\Core\Page\Page;
-use Concrete\Core\Page\View\PageView;
-use Concrete\Core\Routing\MatchedRoute;
-use Concrete\Core\Routing\Router;
+use Concrete\Core\Http\Request;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
-
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class RouteDataCollectorCollector
@@ -21,21 +14,20 @@ use Illuminate\Support\Facades\Config;
 class RouteDataCollector extends DataCollector implements Renderable
 {
     /**
-     * {@inheritDoc}
+     * @return array|string[]
      */
-    public function collect()
+    public function collect(): array
     {
         return $this->getRouteInformation();
     }
 
     /**
-     * Get the route information for a given route.
-     *
-     * @return array
+     * @return string[]
+     * @throws \ReflectionException
      */
-    protected function getRouteInformation()
+    protected function getRouteInformation(): array
     {
-        $request = \Concrete\Core\Http\Request::getInstance();
+        $request = Request::getInstance();
 
         $uri = $request->getMethod() . ' ' . $request->getRequestUri();
 
@@ -68,32 +60,32 @@ class RouteDataCollector extends DataCollector implements Renderable
     }
 
     /**
-     * {@inheritDoc}
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'route';
     }
 
     /**
-     * {@inheritDoc}
+     * @return \string[][]
      */
-    public function getWidgets()
+    public function getWidgets(): array
     {
         $widgets = [
-            "route" => [
-                "icon" => "share",
-                "widget" => "PhpDebugBar.Widgets.VariableListWidget",
-                "map" => "route",
-                "default" => "{}"
+            'route' => [
+                'icon' => 'share',
+                'widget' => 'PhpDebugBar.Widgets.VariableListWidget',
+                'map' => 'route',
+                'default' => '{}'
             ]
         ];
 
         $widgets['currentroute'] = [
-            "icon" => "share",
-            "tooltip" => "Route",
-            "map" => "route.uri",
-            "default" => ""
+            'icon' => 'share',
+            'tooltip' => 'Route',
+            'map' => 'route.uri',
+            'default' => ''
         ];
 
         return $widgets;

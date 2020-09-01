@@ -1,26 +1,23 @@
 <?php
+declare(strict_types=1);
 
 namespace Concrete\Package\MtProfiler\DataCollector;
 
 use Concrete\Core\Logging\LogList;
-use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\User\User;
-use Concrete\Package\MtProfiler\DataFormatter\SimpleDataFormatter;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
-use Monolog\Formatter\LineFormatter;
 
+/**
+ * Class LogDataCollector
+ * @package Concrete\Package\MtProfiler\DataCollector
+ */
 class LogDataCollector extends DataCollector implements Renderable
 {
-    public function __construct()
-    {
-        // $this->setDataFormatter(new LineFormatter());
-    }
-
     /**
-     * @inheritDoc
+     * @return array
      */
-    function collect()
+    function collect(): array
     {
         $list = new LogList();
         $list->filterByTime(strtotime(date('Y-m-d') . ' 00:00:00'), '>=');
@@ -55,28 +52,28 @@ class LogDataCollector extends DataCollector implements Renderable
 
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    function getName()
+    function getName(): string
     {
         return 'concrete5log';
     }
 
     /**
-     * @inheritDoc
+     * @return \string[][]
      */
-    function getWidgets()
+    function getWidgets(): array
     {
         return [
-            "logs" => [
-                "icon" => "file-archive-o",
-                "widget" => "PhpDebugBar.Widgets.MessagesWidget",
-                "map" => "concrete5log.records",
-                "default" => "{}"
+            'logs' => [
+                'icon' => 'file-archive-o',
+                'widget' => 'PhpDebugBar.Widgets.MessagesWidget',
+                'map' => 'concrete5log.records',
+                'default' => '{}'
             ],
-            "logs:badge" => array(
-                "map" => "concrete5log.count",
-                "default" => "null"
+            'logs:badge' => array(
+                'map' => 'concrete5log.count',
+                'default' => 'null'
             )
         ];
     }
