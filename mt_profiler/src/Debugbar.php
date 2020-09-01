@@ -50,51 +50,85 @@ class Debugbar extends \DebugBar\DebugBar
         if ($app->make('config')->get('mt_profiler.profilers.messages') === true) {
             $this->addCollector(new MessagesCollector());
         }
-        $this->addCollector(new TimeDataCollector());
-        $this->addCollector(new MemoryCollector());
-        $this->addCollector(new RequestDataCollector());
-        $this->addCollector(new SessionDataCollector());
-        $this->addCollector(new MonologDataCollector($app->make('log')));
+
+        if ($app->make('config')->get('mt_profiler.profilers.time') === true) {
+            $this->addCollector(new TimeDataCollector());
+        }
+
+        if ($app->make('config')->get('mt_profiler.profilers.memory') === true) {
+            $this->addCollector(new MemoryCollector());
+        }
+
+        if ($app->make('config')->get('mt_profiler.profilers.request') === true) {
+            $this->addCollector(new RequestDataCollector());
+        }
+
+        if ($app->make('config')->get('mt_profiler.profilers.session') === true) {
+            $this->addCollector(new SessionDataCollector());
+        }
+
+        if ($app->make('config')->get('mt_profiler.profilers.monolog') === true) {
+            $this->addCollector(new MonologDataCollector($app->make('log')));
+        }
+
+        if ($app->make('config')->get('mt_profiler.profilers.db') === true) {
+            $logger = $app->make(DatabaseManager::class)->getConfiguration()->getSqlLogger();
+            $this->addCollector(new DoctrineDataCollector($logger));
+        }
+
+        if ($app->make('config')->get('mt_profiler.profilers.logs') === true) {
+            $this->addCollector(new LogDataCollector());
+        }
+
+        if ($app->make('config')->get('mt_profiler.profilers.env') === true) {
+            $this->addCollector(new EnvironmentDataCollector());
+        }
 
 
-        $logger = $app->make(DatabaseManager::class)->getConfiguration()->getSqlLogger();
-        $this->addCollector(new DoctrineDataCollector($logger));
-        $this->addCollector(new LogDataCollector());
-        $this->addCollector(new EnvironmentDataCollector());
+        if ($app->make('config')->get('mt_profiler.profilers.event') === true) {
+            $startTime = Request::getInstance()->server->get('REQUEST_TIME_FLOAT');
+            $eventCollector = new EventDataCollector($startTime);
+            $eventCollector->subscribe($app->make('director'));
+            $this->addCollector($eventCollector);
+        }
 
+        if ($app->make('config')->get('mt_profiler.profilers.config') === true) {
+            $configCollector = new ConfigCollector();
+            $configCollector->setData($app->make('config')->all());
+            $configCollector->useHtmlVarDumper(true);
+            $this->addCollector($configCollector);
+        }
 
-        $startTime = Request::getInstance()->server->get('REQUEST_TIME_FLOAT');
-        $eventCollector = new EventDataCollector($startTime);
-        $eventCollector->subscribe($app->make('director'));
-        $this->addCollector($eventCollector);
+        if ($app->make('config')->get('mt_profiler.profilers.route') === true) {
+            $routeCollector = new RouteDataCollector();
+            $this->addCollector($routeCollector);
+        }
 
-        $configCollector = new ConfigCollector();
-        $configCollector->setData($app->make('config')->all());
-        $configCollector->useHtmlVarDumper(true);
-        $this->addCollector($configCollector);
+        if ($app->make('config')->get('mt_profiler.profilers.user') === true) {
+            $userCollector = new UserDataCollector();
+            $this->addCollector($userCollector);
+        }
 
-        $routeCollector = new RouteDataCollector();
-        $this->addCollector($routeCollector);
+        if ($app->make('config')->get('mt_profiler.profilers.block') === true) {
+            $blockCollector = new BlockDataCollector();
+            $blockCollector->subscribe($app->make('director'));
+            $this->addCollector($blockCollector);
+        }
 
-        $userCollector = new UserDataCollector();
-        $this->addCollector($userCollector);
-
-        $blockCollector = new BlockDataCollector();
-        $blockCollector->subscribe($app->make('director'));
-        $this->addCollector($blockCollector);
-
-        $mailCollector = new MailDataCollector();
-        $this->addCollector($mailCollector);
+        if ($app->make('config')->get('mt_profiler.profilers.mail') === true) {
+            $mailCollector = new MailDataCollector();
+            $this->addCollector($mailCollector);
+        }
     }
 
     /**
      * Returns a JavascriptRenderer for this instance
      *
-     * @param string $baseUrl
-     * @param string $basePathng
+     * @param string|null $baseUrl
+     * @param string|null $basePath
      * @return JsRenderer
      */
-    public function getJavascriptRenderer($baseUrl = null, $basePath = null)
+    public function getJavascriptRenderer($baseUrl = null, $basePath = null): JsRenderer
     {
         if ($this->jsRenderer === null) {
             $this->jsRenderer = new JsRenderer($this, $baseUrl, $basePath);
