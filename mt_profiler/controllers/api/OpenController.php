@@ -3,6 +3,7 @@ namespace MtProfiler\Controller\Api;
 
 use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
+use Concrete\Package\MtProfiler\Debugbar;
 use DebugBar\OpenHandler;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,7 @@ class OpenController implements ApplicationAwareInterface
 
     public function handle()
     {
-        $debugbar = $this->app->make('debugbar');
+        $debugbar = $this->app->make(Debugbar::class);
 
         $openHandler = new OpenHandler($debugbar);
         $data = $openHandler->handle(null, false, false);

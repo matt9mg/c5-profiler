@@ -1,7 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace Concrete\Package\MtProfiler;
 
-
+use Concrete\Core\Application\Application;
+use Concrete\Core\Database\DatabaseManager;
 use Concrete\Core\Http\Request;
 use Concrete\Core\Routing\Router;
 use Concrete\Package\MtProfiler\DataCollector\BlockDataCollector;
@@ -24,29 +27,37 @@ use DebugBar\DataCollector\TimeDataCollector;
 use DebugBar\Storage\FileStorage;
 
 
+/**
+ * Class Debugbar
+ * @package Concrete\Package\MtProfiler
+ */
 class Debugbar extends \DebugBar\DebugBar
 {
     /**
      * Debugbar constructor.
      */
-    public function __construct()
+    public function __construct(Application $app)
     {
         @mkdir(DIR_BASE . REL_DIR_FILES_UPLOADED_STANDARD . '/storage');
         $this->setStorage(new FileStorage(DIR_BASE . REL_DIR_FILES_UPLOADED_STANDARD . '/storage'));
         $renderer = $this->getJavascriptRenderer('/packages/mt_profiler/vendor/maximebf/debugbar/src/DebugBar/Resources');
         $renderer->setOpenHandlerUrl('/mt_profiler/open/');
 
-        $this->addCollector(new PhpInfoCollector());
-        $this->addCollector(new MessagesCollector());$this->addCollector(new TimeDataCollector());
+        if ($app->make('config')->get('mt_profiler.profilers.php_info') === true) {
+            $this->addCollector(new PhpInfoCollector());
+        }
+
+        if ($app->make('config')->get('mt_profiler.profilers.messages') === true) {
+            $this->addCollector(new MessagesCollector());
+        }
+        $this->addCollector(new TimeDataCollector());
         $this->addCollector(new MemoryCollector());
         $this->addCollector(new RequestDataCollector());
         $this->addCollector(new SessionDataCollector());
-
-        $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
         $this->addCollector(new MonologDataCollector($app->make('log')));
 
 
-        $logger = $app->make('Concrete\Core\Database\DatabaseManager')->getConfiguration()->getSqlLogger();
+        $logger = $app->make(DatabaseManager::class)->getConfiguration()->getSqlLogger();
         $this->addCollector(new DoctrineDataCollector($logger));
         $this->addCollector(new LogDataCollector());
         $this->addCollector(new EnvironmentDataCollector());
@@ -54,15 +65,15 @@ class Debugbar extends \DebugBar\DebugBar
 
         $startTime = Request::getInstance()->server->get('REQUEST_TIME_FLOAT');
         $eventCollector = new EventDataCollector($startTime);
-        $this->addCollector($eventCollector);
         $eventCollector->subscribe($app->make('director'));
+        $this->addCollector($eventCollector);
 
         $configCollector = new ConfigCollector();
         $configCollector->setData($app->make('config')->all());
         $configCollector->useHtmlVarDumper(true);
         $this->addCollector($configCollector);
 
-        $routeCollector = new RouteDataCollector($app->make(Router::class));
+        $routeCollector = new RouteDataCollector();
         $this->addCollector($routeCollector);
 
         $userCollector = new UserDataCollector();

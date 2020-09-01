@@ -7,6 +7,9 @@ use Concrete\Core\Database\DatabaseManager;
 use Concrete\Core\Package\Package;
 use Concrete\Core\Routing\Route;
 use Concrete\Core\Routing\Router;
+use Concrete\Package\MtProfiler\DependencyInjection\Container;
+use Concrete\Package\MtProfiler\Events\Listeners;
+use Concrete\Package\MtProfiler\Router\Routes;
 use Doctrine\DBAL\Logging\DebugStack;
 use MtProfiler\Controller\Api\AssetController;
 use MtProfiler\Controller\Api\OpenController;
@@ -52,49 +55,9 @@ class Controller extends Package
         if (isset($config['active']) === false || $config['active'] === true) {
             $this->app->make(DatabaseManager::class)->getConfiguration()->setSQLLogger(new DebugStack());
 
-            $router = $this->app->make(Router::class);
-            $route = new Route('/mt_profiler/open/');
-            $route->setAction(OpenController::class . '::handle');
-
-            $router->addRoute($route);
-
-            $route = new Route('/mt_profiler/assets/css/');
-            $route->setAction(AssetController::class . '::css');
-
-            $router->addRoute($route);
-
-            $route = new Route('/mt_profiler/assets/js/');
-            $route->setAction(AssetController::class . '::js');
-
-            $router->addRoute($route);
-
-            $app = $this->getApplication();
-
-            $app->singleton('debugbar', Debugbar::class);
-            $app->bind('debugbar/renderer', function () use ($app) {
-                return $app->make('debugbar')->getJavascriptRenderer($this->getRelativePath().'/vendor/maximebf/debugbar/src/DebugBar/Resources');
-            });
-            $app->bind('debugbar/messages', static function () use ($app) {
-                return $app->make('debugbar')['messages'];
-            });
-            $app->bind('debugbar/time', static function () use ($app) {
-                return $app->make('debugbar')['time'];
-            });
-            $app->make('director')->addListener('on_before_dispatch', static function () use ($app){
-                $app->make('debugbar');
-            });
-
-            $app->make('director')->addListener('on_before_render', static function ($event) use ($app) {
-                $v = $event->getArgument('view');
-                $v->addHeaderItem($app->make('debugbar/renderer')->renderHead());
-                $v->addFooterItem(self::PLACEHOLDER_TEXT);
-            });
-
-            $app->make('director')->addListener('on_page_output', static function ($event) use ($app) {
-                $contents = $event->getArgument('contents');
-                $contents = str_replace(self::PLACEHOLDER_TEXT, $app->make('debugbar/renderer')->render(), $contents);
-                $event->setArgument('contents', $contents);
-            });
+            (new Routes($this->app->make(Router::class)))->register();
+            (new Container($this->app))->register($this->getRelativePath());
+            (new Listeners($this->app))->listen();
         }
     }
 }

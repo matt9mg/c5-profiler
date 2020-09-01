@@ -5,6 +5,7 @@ namespace MtProfiler\Controller\Api;
 use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Http\Response;
+use Concrete\Package\MtProfiler\Debugbar;
 
 class AssetController implements ApplicationAwareInterface
 {
@@ -17,7 +18,7 @@ class AssetController implements ApplicationAwareInterface
      */
     public function js()
     {
-        $debugbar = $this->app->make('debugbar');
+        $debugbar = $this->app->make(Debugbar::class);
 
         $renderer = $debugbar->getJavascriptRenderer();
 
@@ -39,7 +40,7 @@ class AssetController implements ApplicationAwareInterface
      */
     public function css()
     {
-        $debugbar = $this->app->make('debugbar');
+        $debugbar = $this->app->make(Debugbar::class);
 
         $renderer = $debugbar->getJavascriptRenderer();
 
