@@ -18,6 +18,7 @@ use Concrete\Package\MtProfiler\DataCollector\RequestDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\RouteDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\SessionDataCollector;
 use Concrete\Package\MtProfiler\DataCollector\UserDataCollector;
+use Concrete\Package\MtProfiler\Events\AddDataCollectorEvent;
 use Concrete\Package\MtProfiler\Renderer\JsRenderer;
 use DebugBar\DataCollector\ConfigCollector;
 use DebugBar\DataCollector\MemoryCollector;
@@ -119,6 +120,8 @@ class Debugbar extends \DebugBar\DebugBar
             $mailCollector = new MailDataCollector();
             $this->addCollector($mailCollector);
         }
+
+        $app->make('director')->dispatch(AddDataCollectorEvent::ADD_DATA_COLLECTOR, new AddDataCollectorEvent($this));
     }
 
     /**
