@@ -8,6 +8,6 @@ use Concrete\Core\Page\Controller\DashboardPageController;
 class MtProfiler extends DashboardPageController
 {
     public function view() {
-
+        $this->set('title', t('MT Profiler'));
     }
 }
