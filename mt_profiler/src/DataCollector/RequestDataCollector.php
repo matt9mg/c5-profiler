@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Concrete\Package\MtProfiler\DataCollector;
 
 use Concrete\Core\Http\Request;
+use DebugBar\DataCollector\AssetProvider;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 
@@ -11,7 +12,7 @@ use DebugBar\DataCollector\Renderable;
  * Class RequestDataCollector
  * @package Concrete\Package\MtProfiler\DataCollector
  */
-class RequestDataCollector extends DataCollector implements Renderable
+class RequestDataCollector extends DataCollector implements Renderable, AssetProvider
 {
     /**
      * @return array
@@ -53,6 +54,14 @@ class RequestDataCollector extends DataCollector implements Renderable
                 'default' => '{}'
             ]
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssets(): array
+    {
+        return $this->getVarDumper()->getAssets();
     }
 
 }

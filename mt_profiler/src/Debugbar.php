@@ -21,6 +21,7 @@ use Concrete\Package\MtProfiler\DataCollector\UserDataCollector;
 use Concrete\Package\MtProfiler\Events\AddDataCollectorEvent;
 use Concrete\Package\MtProfiler\Renderer\JsRenderer;
 use DebugBar\DataCollector\ConfigCollector;
+use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\MemoryCollector;
 use DebugBar\DataCollector\MessagesCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
@@ -42,6 +43,7 @@ class Debugbar extends \DebugBar\DebugBar
         @mkdir(DIR_BASE . REL_DIR_FILES_UPLOADED_STANDARD . '/storage');
         $this->setStorage(new FileStorage(DIR_BASE . REL_DIR_FILES_UPLOADED_STANDARD . '/storage'));
         $renderer = $this->getJavascriptRenderer('/packages/mt_profiler/vendor/maximebf/debugbar/src/DebugBar/Resources');
+        $renderer->dumpHeadAssets();
         $renderer->setOpenHandlerUrl('/mt_profiler/open/');
 
         if ($app->make('config')->get('mt_profiler.profilers.php_info') === true) {
@@ -93,7 +95,7 @@ class Debugbar extends \DebugBar\DebugBar
             $this->addCollector($eventCollector);
         }
 
-        if ($app->make('config')->get('mt_profiler.profilers.config') === true) {
+            if ($app->make('config')->get('mt_profiler.profilers.config') === true) {
             $configCollector = new ConfigCollector();
             $configCollector->setData($app->make('config')->all());
             $configCollector->useHtmlVarDumper(true);
@@ -103,7 +105,7 @@ class Debugbar extends \DebugBar\DebugBar
         if ($app->make('config')->get('mt_profiler.profilers.route') === true) {
             $routeCollector = new RouteDataCollector();
             $this->addCollector($routeCollector);
-        }
+       }
 
         if ($app->make('config')->get('mt_profiler.profilers.user') === true) {
             $userCollector = new UserDataCollector();

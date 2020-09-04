@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
+
 namespace Concrete\Package\MtProfiler\DataCollector;
 
+use DebugBar\DataCollector\AssetProvider;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 
@@ -9,7 +11,7 @@ use DebugBar\DataCollector\Renderable;
  * Class SessionDataCollector
  * @package Concrete\Package\MtProfiler\DataCollector
  */
-class SessionDataCollector extends DataCollector implements Renderable
+class SessionDataCollector extends DataCollector implements Renderable, AssetProvider
 {
     /**
      * @return array
@@ -47,6 +49,14 @@ class SessionDataCollector extends DataCollector implements Renderable
                 'default' => '{}'
             ]
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssets(): array
+    {
+        return $this->getVarDumper()->getAssets();
     }
 
 }

@@ -27,10 +27,15 @@ class MtProfiler extends DashboardPageController
             $config->save('mt_profiler.profilers.messages', (bool)$this->request->request->get('messages', false));
             $config->save('mt_profiler.profilers.time', (bool)$this->request->request->get('time', false));
             $config->save('mt_profiler.profilers.memory', (bool)$this->request->request->get('memory', false));
+            $config->save('mt_profiler.profilers.request', (bool)$this->request->request->get('request', false));
+            $config->save('mt_profiler.profilers.session', (bool)$this->request->request->get('session', false));
+            $config->save('mt_profiler.profilers.monolog', (bool)$this->request->request->get('monolog', false));
+            $config->save('mt_profiler.profilers.db', (bool)$this->request->request->get('db', false));
+            $config->save('mt_profiler.profilers.logs', (bool)$this->request->request->get('logs', false));
+            $config->save('mt_profiler.profilers.env', (bool)$this->request->request->get('env', false));
 
             return new RedirectResponse('/dashboard/mt_profiler');
         }
-
 
         $this->set('title', t('MT Profiler'));
         $this->set('active', $config->get('mt_profiler.active'));
@@ -38,5 +43,11 @@ class MtProfiler extends DashboardPageController
         $this->set('messages', $config->get('mt_profiler.profilers.messages'));
         $this->set('time', $config->get('mt_profiler.profilers.time'));
         $this->set('memory', $config->get('mt_profiler.profilers.memory'));
+        $this->set('request', $config->get('mt_profiler.profilers.request'));
+        $this->set('session', $config->get('mt_profiler.profilers.session'));
+        $this->set('monolog', $config->get('mt_profiler.profilers.monolog'));
+        $this->set('db', $config->get('mt_profiler.profilers.db'));
+        $this->set('logs', $config->get('mt_profiler.profilers.logs'));
+        $this->set('env', $config->get('mt_profiler.profilers.env'));
     }
 }

@@ -31,6 +31,37 @@
     </div>
 
     <div class="form-group">
+        <?php echo $form->label('request', t('See current request info?')); ?>
+        <?php echo $form->checkbox('request', '1', $request); ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('session', t('See current session info?')); ?>
+        <?php echo $form->checkbox('session', '1', $session); ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('monolog', t('View monolog?')); ?>
+        <?php echo $form->checkbox('monolog', '1', $monolog); ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('db', t('View DB queries?')); ?>
+        <?php echo $form->checkbox('db', '1', $db); ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('logs', t('View c5 Logs?')); ?>
+        <?php echo $form->checkbox('logs', '1', $logs); ?>
+        <small><?php echo t('This will only show the last 24 hours'); ?></small>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('env', t('View Environment Information?')); ?>
+        <?php echo $form->checkbox('env', '1', $env); ?>
+    </div
+
+    <div class="form-group">
         <button type="submit" class="btn btn-success"><?php echo t('Save'); ?></button>
     </div>
 </form>

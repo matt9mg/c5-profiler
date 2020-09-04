@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
+
 namespace Concrete\Package\MtProfiler\DataCollector;
 
 use Concrete\Core\Http\Request;
+use DebugBar\DataCollector\AssetProvider;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 
@@ -10,7 +12,7 @@ use DebugBar\DataCollector\Renderable;
  * Class EnvironmentDataCollector
  * @package Concrete\Package\MtProfiler\DataCollector
  */
-class EnvironmentDataCollector extends DataCollector implements Renderable
+class EnvironmentDataCollector extends DataCollector implements Renderable, AssetProvider
 {
     /**
      * @return array
@@ -18,8 +20,8 @@ class EnvironmentDataCollector extends DataCollector implements Renderable
     public function collect(): array
     {
         $data['variables'] = $this->getVarDumper()->renderVar(get_defined_vars());
-        $data['server']    = $this->getVarDumper()->renderVar(Request::getInstance()->server->all());
-        $data['classes']   = $this->getVarDumper()->renderVar(get_declared_classes());
+        $data['server'] = $this->getVarDumper()->renderVar(Request::getInstance()->server->all());
+        $data['classes'] = $this->getVarDumper()->renderVar(get_declared_classes());
         $data['functions'] = $this->getVarDumper()->renderVar(get_defined_functions());
         $data['constants'] = $this->getVarDumper()->renderVar(get_defined_constants());
 
@@ -47,5 +49,13 @@ class EnvironmentDataCollector extends DataCollector implements Renderable
                 'default' => '{}',
             ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssets(): array
+    {
+        return $this->getVarDumper()->getAssets();
     }
 }
