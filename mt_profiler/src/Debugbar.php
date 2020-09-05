@@ -88,7 +88,7 @@ class Debugbar extends \DebugBar\DebugBar
         }
 
 
-        if ($app->make('config')->get('mt_profiler.profilers.event') === true) {
+        if ($app->make('config')->get('mt_profiler.profilers.events') === true) {
             $startTime = Request::getInstance()->server->get('REQUEST_TIME_FLOAT');
             $eventCollector = new EventDataCollector($startTime);
             $eventCollector->subscribe($app->make('director'));

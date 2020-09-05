@@ -33,6 +33,8 @@ class MtProfiler extends DashboardPageController
             $config->save('mt_profiler.profilers.db', (bool)$this->request->request->get('db', false));
             $config->save('mt_profiler.profilers.logs', (bool)$this->request->request->get('logs', false));
             $config->save('mt_profiler.profilers.env', (bool)$this->request->request->get('env', false));
+            $config->save('mt_profiler.profilers.events', (bool)$this->request->request->get('events', false));
+            $config->save('mt_profiler.profilers.config', (bool)$this->request->request->get('config', false));
 
             return new RedirectResponse('/dashboard/mt_profiler');
         }
@@ -49,5 +51,7 @@ class MtProfiler extends DashboardPageController
         $this->set('db', $config->get('mt_profiler.profilers.db'));
         $this->set('logs', $config->get('mt_profiler.profilers.logs'));
         $this->set('env', $config->get('mt_profiler.profilers.env'));
+        $this->set('events', $config->get('mt_profiler.profilers.events'));
+        $this->set('config', $config->get('mt_profiler.profilers.config'));
     }
 }

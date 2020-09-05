@@ -57,8 +57,13 @@
     </div>
 
     <div class="form-group">
-        <?php echo $form->label('env', t('View Environment Information?')); ?>
-        <?php echo $form->checkbox('env', '1', $env); ?>
+        <?php echo $form->label('events', t('Track events?')); ?>
+        <?php echo $form->checkbox('events', '1', $events); ?>
+    </div
+
+    <div class="form-group">
+        <?php echo $form->label('config', t('View C5 Config?')); ?>
+        <?php echo $form->checkbox('config', '1', $config); ?>
     </div
 
     <div class="form-group">
