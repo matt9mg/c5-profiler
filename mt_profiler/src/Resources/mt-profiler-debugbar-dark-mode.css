@@ -125,8 +125,7 @@ div.phpdebugbar div.phpdebugbar-widgets-sqlqueries li.phpdebugbar-widgets-list-i
 div.phpdebugbar div.phpdebugbar-widgets-sqlqueries li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-copy-clipboard,
 div.phpdebugbar div.phpdebugbar-widgets-sqlqueries li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-stmt-id,
 div.phpdebugbar .phpdebugbar-text-muted,
-div.phpdebugbar-openhandler .phpdebugbar-text-muted
-{
+div.phpdebugbar-openhandler .phpdebugbar-text-muted {
     color: var(--color-gray-600);
 }
 
@@ -270,4 +269,9 @@ div.phpdebugbar .hljs-deletion {
 div.phpdebugbar .hljs-literal,
 div.phpdebugbar .hljs-number {
     color: #bd93f9;
+}
+
+.phpdebugbar pre.sf-dump .sf-dump-public,
+.phpdebugbar pre.sf-dump .protected {
+    color: #FFF;
 }

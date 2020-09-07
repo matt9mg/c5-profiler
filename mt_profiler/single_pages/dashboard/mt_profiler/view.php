@@ -59,12 +59,33 @@
     <div class="form-group">
         <?php echo $form->label('events', t('Track events?')); ?>
         <?php echo $form->checkbox('events', '1', $events); ?>
-    </div
+    </div>
 
     <div class="form-group">
-        <?php echo $form->label('config', t('View C5 Config?')); ?>
+        <?php echo $form->label('config', t('View C5 config?')); ?>
         <?php echo $form->checkbox('config', '1', $config); ?>
-    </div
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('route', t('View route information?')); ?>
+        <?php echo $form->checkbox('route', '1', $route); ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('user', t('Profile user?')); ?>
+        <?php echo $form->checkbox('user', '1', $user); ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('blocks', t('View blocks used?')); ?>
+        <?php echo $form->checkbox('blocks', '1', $blocks); ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo $form->label('mail', t('View sent mail?')); ?>
+        <?php echo $form->checkbox('mail', '1', $mail); ?>
+        <small><?php echo t('This will only show the last 24 hours'); ?></small>
+    </div>
 
     <div class="form-group">
         <button type="submit" class="btn btn-success"><?php echo t('Save'); ?></button>

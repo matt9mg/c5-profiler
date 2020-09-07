@@ -49,7 +49,7 @@ class RouteDataCollector extends DataCollector implements Renderable
 
             if (isset($reflector)) {
                 $filename = ltrim(str_replace(REL_DIR_APPLICATION, '', $reflector->getFileName()), '/');
-                $result['controller file'] = $filename . ':' . $reflector->getStartLine() . '-' . $reflector->getEndLine();
+                $result['controller file'] = '/' . $filename . ':' . $reflector->getStartLine() . '-' . $reflector->getEndLine();
             }
 
             $result['view'] = $controller->getThemeViewTemplate();

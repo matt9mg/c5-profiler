@@ -112,7 +112,7 @@ class Debugbar extends \DebugBar\DebugBar
             $this->addCollector($userCollector);
         }
 
-        if ($app->make('config')->get('mt_profiler.profilers.block') === true) {
+        if ($app->make('config')->get('mt_profiler.profilers.blocks') === true) {
             $blockCollector = new BlockDataCollector();
             $blockCollector->subscribe($app->make('director'));
             $this->addCollector($blockCollector);
