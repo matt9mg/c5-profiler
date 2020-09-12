@@ -21,7 +21,7 @@ Add this to you composer.json:
 
 ```json
 "require": {
-  "matt9mg/c5-profiler": "1.*",
+  "matt9mg/c5-profiler": "^1.0",
   "slowprog/composer-copy-file": "~0.3"
 },
 "scripts": {
