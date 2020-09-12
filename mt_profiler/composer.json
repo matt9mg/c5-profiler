@@ -1,5 +1,17 @@
 {
+  "name": "matt9mg/c5-profiler",
+  "type": "library",
+  "description": "Concrete5 profiler PHP Debugbar",
+  "keywords": [],
+  "homepage": "https://github.com/matt9mg/c5-profiler",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Matthew Thomas"
+    }
+  ],
   "require": {
+    "php": ">=7.4",
     "maximebf/debugbar": "^1.16"
   },
   "autoload": {
