@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="90b4c0e3-2b87-44b8-882a-46ee6d94dde9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mt_profiler/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/mt_profiler/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/mt_profiler/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/mt_profiler/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/mt_profiler/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/mt_profiler/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/mt_profiler/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/mt_profiler/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/mt_profiler/vendor/composer" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1ghfl2Be1Dn4QKvHS1ckTV0aoKA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="TF_FMT" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mt_profiler" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/mt_profiler/docs/images" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="90b4c0e3-2b87-44b8-882a-46ee6d94dde9" name="Default Changelist" comment="" />
+      <created>1598571891366</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598571891366</updated>
+      <workItem from="1598571892452" duration="2435000" />
+      <workItem from="1598729144567" duration="1872000" />
+      <workItem from="1598854090538" duration="598000" />
+      <workItem from="1598980650695" duration="4104000" />
+      <workItem from="1599068128400" duration="49829000" />
+      <workItem from="1599122658342" duration="16000" />
+      <workItem from="1599246590996" duration="983000" />
+      <workItem from="1599502188271" duration="121000" />
+      <workItem from="1599914456523" duration="3615000" />
+      <workItem from="1599918779928" duration="449000" />
+    </task>
+    <task id="LOCAL-00001" summary="WIP">
+      <created>1598571939780</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1598571939781</updated>
+    </task>
+    <task id="LOCAL-00002" summary="better full logging">
+      <created>1598573767288</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1598573767288</updated>
+    </task>
+    <task id="LOCAL-00003" summary="user collector added">
+      <created>1598603554556</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1598603554556</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Lots of lovely updates, ready for code tidy now">
+      <created>1598738293615</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1598738293615</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Final RC feature, ready for code tidy :)">
+      <created>1598738904440</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1598738904440</updated>
+    </task>
+    <task id="LOCAL-00006" summary="WIP">
+      <created>1598983204328</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1598983204328</updated>
+    </task>
+    <task id="LOCAL-00007" summary="code tidy WIP">
+      <created>1598990061829</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1598990061829</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Apply strict standards and some config updates">
+      <created>1598993587681</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1598993587681</updated>
+    </task>
+    <task id="LOCAL-00009" summary="debugger config">
+      <created>1598993939448</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1598993939448</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fix re-install and add custom event">
+      <created>1599028400633</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1599028400633</updated>
+    </task>
+    <task id="LOCAL-00011" summary="allow generated overrides">
+      <created>1599068151453</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1599068151453</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add more configuration">
+      <created>1599246612682</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1599246612682</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add more configuration">
+      <created>1599309608101</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1599309608101</updated>
+    </task>
+    <task id="LOCAL-00014" summary="final updates for version 1">
+      <created>1599502229790</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1599502229790</updated>
+    </task>
+    <task id="LOCAL-00015" summary="docs and other updates">
+      <created>1599916352630</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1599916352630</updated>
+    </task>
+    <task id="LOCAL-00016" summary="update composer.json file">
+      <created>1599916714383</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1599916714383</updated>
+    </task>
+    <task id="LOCAL-00017" summary="remove .idea">
+      <created>1599916816949</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1599916816949</updated>
+    </task>
+    <task id="LOCAL-00018" summary="update composer files">
+      <created>1599917005517</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1599917005517</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="better full logging" />
+    <MESSAGE value="user collector added" />
+    <MESSAGE value="Lots of lovely updates, ready for code tidy now" />
+    <MESSAGE value="Final RC feature, ready for code tidy :)" />
+    <MESSAGE value="WIP" />
+    <MESSAGE value="code tidy WIP" />
+    <MESSAGE value="Apply strict standards and some config updates" />
+    <MESSAGE value="debugger config" />
+    <MESSAGE value="Fix re-install and add custom event" />
+    <MESSAGE value="allow generated overrides" />
+    <MESSAGE value="add more configuration" />
+    <MESSAGE value="final updates for version 1" />
+    <MESSAGE value="docs and other updates" />
+    <MESSAGE value="update composer.json file" />
+    <MESSAGE value="remove .idea" />
+    <MESSAGE value="update composer files" />
+    <option name="LAST_COMMIT_MESSAGE" value="update composer files" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="307" y="23" width="825" height="834" key="CommitChangelistDialog2" timestamp="1599917005396">
+      <screen x="0" y="23" width="1440" height="834" />
+    </state>
+    <state x="307" y="23" width="825" height="834" key="CommitChangelistDialog2/0.23.1440.834@0.23.1440.834" timestamp="1599917005396" />
+    <state x="320" y="180" key="Vcs.Push.Dialog.v2" timestamp="1599917007023">
+      <screen x="0" y="23" width="1440" height="834" />
+    </state>
+    <state x="320" y="180" key="Vcs.Push.Dialog.v2/0.23.1440.834@0.23.1440.834" timestamp="1599917007023" />
+  </component>
+</project>
