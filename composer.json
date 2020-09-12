@@ -9,8 +9,5 @@
     {
       "name": "Matthew Thomas"
     }
-  ],
-  "require": {
-    "php": ">=7.4"
-  }
+  ]
 }
