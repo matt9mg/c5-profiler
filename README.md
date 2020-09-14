@@ -73,7 +73,6 @@ If you wish to control this if the config DIR instead of using the dashboard scr
 <?php
 return [
     'active' => true,
-    'php_info' => true,
     'profilers' => [
         'php_info' => true,
         'messages' => true,
