@@ -12,7 +12,7 @@ Concrete 5.8 and PHP7.4+ compatible add-on to analyze in realtime system and per
 There are 2 ways to install this package
 
 ##### Copy and Paste
-Please download the repo and copy and paste the package into the packages directory.
+Please download the repo and copy and paste just the package folder `mt_profiler` into the packages directory.
 
 ##### Composer
 You can use composer to get the latest version and keep upto date
